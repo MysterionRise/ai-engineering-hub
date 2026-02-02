@@ -1,8 +1,0 @@
-streamlit
-openai
-Faker
-fastapi
-requests
-uvicorn
-tiktoken
-python-dotenv
