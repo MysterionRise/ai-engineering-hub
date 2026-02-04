@@ -2,7 +2,7 @@
 
 Production-grade AI engineering patterns, examples, and best practices for building LLM-powered applications.
 
-[![CI](https://github.com/yourusername/ai-engineering-hub/actions/workflows/ci.yaml/badge.svg)](https://github.com/yourusername/ai-engineering-hub/actions/workflows/ci.yaml)
+[![CI](https://github.com/MysterionRise/ai-engineering-hub/actions/workflows/ci.yaml/badge.svg)](https://github.com/MysterionRise/ai-engineering-hub/actions/workflows/ci.yaml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -21,7 +21,7 @@ This repository demonstrates modern AI engineering practices including:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ai-engineering-hub.git
+git clone https://github.com/MysterionRise/ai-engineering-hub.git
 cd ai-engineering-hub
 
 # Install dependencies
