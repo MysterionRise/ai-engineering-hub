@@ -58,9 +58,8 @@ class TestSettings:
 
         # Invalid temperature should raise
         env = {"AI_HUB_DEFAULT_TEMPERATURE": "3.0"}
-        with patch.dict(os.environ, env, clear=True):
-            with pytest.raises(Exception):  # Pydantic ValidationError
-                Settings()
+        with patch.dict(os.environ, env, clear=True), pytest.raises(ValueError):  # Pydantic ValidationError
+            Settings()
 
 
 class TestGetSettings:

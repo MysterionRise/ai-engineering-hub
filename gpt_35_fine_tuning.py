@@ -4,7 +4,8 @@ from openai import OpenAI
 load_dotenv()
 client = OpenAI()
 
-client.files.create(file=open("data/generated_data.jsonl", "rb"), purpose="fine-tune")
+with open("data/generated_data.jsonl", "rb") as f:
+    client.files.create(file=f, purpose="fine-tune")
 
 print(client.files.list())
 

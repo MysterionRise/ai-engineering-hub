@@ -15,8 +15,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from ai_hub import Message, OpenAIProvider, get_logger, setup_logging
-from ai_hub.providers.base import Role
+from ai_hub import get_logger, setup_logging
 
 setup_logging()
 logger = get_logger(__name__)

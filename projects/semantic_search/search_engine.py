@@ -97,21 +97,20 @@ class SemanticSearchEngine:
 
             sentence_tokens = count_tokens(sentence, "gpt-4o")
 
-            if current_tokens + sentence_tokens > self.chunk_size:
-                if current_chunk:
-                    chunks.append(". ".join(current_chunk) + ".")
-                    # Keep overlap
-                    overlap_tokens = 0
-                    overlap_sentences = []
-                    for s in reversed(current_chunk):
-                        s_tokens = count_tokens(s, "gpt-4o")
-                        if overlap_tokens + s_tokens <= self.chunk_overlap:
-                            overlap_sentences.insert(0, s)
-                            overlap_tokens += s_tokens
-                        else:
-                            break
-                    current_chunk = overlap_sentences
-                    current_tokens = overlap_tokens
+            if current_tokens + sentence_tokens > self.chunk_size and current_chunk:
+                chunks.append(". ".join(current_chunk) + ".")
+                # Keep overlap
+                overlap_tokens = 0
+                overlap_sentences = []
+                for s in reversed(current_chunk):
+                    s_tokens = count_tokens(s, "gpt-4o")
+                    if overlap_tokens + s_tokens <= self.chunk_overlap:
+                        overlap_sentences.insert(0, s)
+                        overlap_tokens += s_tokens
+                    else:
+                        break
+                current_chunk = overlap_sentences
+                current_tokens = overlap_tokens
 
             current_chunk.append(sentence)
             current_tokens += sentence_tokens
@@ -140,7 +139,7 @@ class SemanticSearchEngine:
         """Calculate cosine similarity."""
         import math
 
-        dot = sum(x * y for x, y in zip(a, b))
+        dot = sum(x * y for x, y in zip(a, b, strict=False))
         norm_a = math.sqrt(sum(x * x for x in a))
         norm_b = math.sqrt(sum(x * x for x in b))
         return dot / (norm_a * norm_b) if norm_a and norm_b else 0.0

@@ -142,7 +142,7 @@ class SimpleRAG:
         """Calculate cosine similarity between two vectors."""
         import math
 
-        dot_product = sum(x * y for x, y in zip(a, b))
+        dot_product = sum(x * y for x, y in zip(a, b, strict=False))
         norm_a = math.sqrt(sum(x * x for x in a))
         norm_b = math.sqrt(sum(x * x for x in b))
         return dot_product / (norm_a * norm_b) if norm_a and norm_b else 0.0
@@ -174,6 +174,7 @@ class SimpleRAG:
                     results["documents"][0],
                     results["metadatas"][0],
                     results["distances"][0],
+                    strict=False,
                 )
             ]
         else:

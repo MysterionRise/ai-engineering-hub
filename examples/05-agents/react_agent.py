@@ -11,7 +11,6 @@ Features demonstrated:
 - Explicit thought chain
 """
 
-import json
 import re
 from typing import Any
 
@@ -155,7 +154,7 @@ Use the following format:
 
 Question: the input question
 Thought: reason about what to do
-Action: the action to take (one of: {', '.join(self.tools.keys())})
+Action: the action to take (one of: {", ".join(self.tools.keys())})
 Action Input: the input to the action
 Observation: the result of the action
 ... (this Thought/Action/Action Input/Observation can repeat N times)
@@ -203,9 +202,7 @@ Begin!"""
                 # No action found, might be confused
                 messages.append(Message.assistant(response_text))
                 messages.append(
-                    Message.user(
-                        "Please continue with a Thought, then an Action, or provide a Final Answer."
-                    )
+                    Message.user("Please continue with a Thought, then an Action, or provide a Final Answer.")
                 )
 
         logger.warning("max_iterations_reached")

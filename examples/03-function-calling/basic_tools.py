@@ -213,8 +213,7 @@ def main() -> None:
     # Example 3: Multiple tools
     print("\n--- Multiple Tools ---")
     result = chat_with_tools(
-        "I'm in San Francisco and need to know two things: "
-        "1) What's the weather? 2) What's 72 fahrenheit in celsius?"
+        "I'm in San Francisco and need to know two things: 1) What's the weather? 2) What's 72 fahrenheit in celsius?"
     )
     print(f"Response: {result}")
 

@@ -5,7 +5,6 @@ import pytest
 from ai_hub.core.errors import (
     AIHubError,
     AuthenticationError,
-    ConfigurationError,
     ContextLengthError,
     ModelNotFoundError,
     ProviderError,

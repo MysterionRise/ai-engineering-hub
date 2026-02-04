@@ -142,9 +142,7 @@ def main() -> None:
 
     # Example 1: Basic JSON extraction
     print("\n--- Basic JSON Extraction ---")
-    result = get_structured_json(
-        "List 3 programming languages with their year of creation and primary use case."
-    )
+    result = get_structured_json("List 3 programming languages with their year of creation and primary use case.")
     print(json.dumps(result, indent=2))
 
     # Example 2: Pydantic model validation

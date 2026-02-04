@@ -14,7 +14,7 @@ import asyncio
 import time
 from collections import deque
 from dataclasses import dataclass, field
-from typing import Any, Callable
+from typing import Any
 
 from ai_hub import Message, OpenAIProvider, get_logger, setup_logging
 

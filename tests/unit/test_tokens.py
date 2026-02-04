@@ -1,7 +1,5 @@
 """Tests for token utilities."""
 
-import pytest
-
 from ai_hub.utils.tokens import (
     check_context_fit,
     count_tokens,

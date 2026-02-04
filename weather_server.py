@@ -1,5 +1,4 @@
 import random
-from typing import List
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -12,7 +11,7 @@ class WeatherInfo(BaseModel):
     location: str
     temperature: str
     unit: str
-    forecast: List[str]
+    forecast: list[str]
 
 
 class Location(BaseModel):

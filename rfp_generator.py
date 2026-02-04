@@ -17,23 +17,21 @@ def generate_company():
 def generate_fake_description(idea: str):
     return do_action_as_chatgpt(
         "You're generator of fake IT RFPs",
-        "You need to generate description based on specific idea" f"Idea: {idea}",
+        f"You need to generate description based on specific ideaIdea: {idea}",
     )
 
 
 def generate_fake_requirements(idea: str):
     return do_action_as_chatgpt(
-        "You're generator of fake IT user stories for the following idea of " "system with up to 20 items",
-        "Be specific, provide user stories that are ready to be implemented, "
-        "and follow INVEST principles"
-        f"Idea: {idea}",
+        "You're generator of fake IT user stories for the following idea of system with up to 20 items",
+        f"Be specific, provide user stories that are ready to be implemented, and follow INVEST principlesIdea: {idea}",
     )
 
 
 def generate_fake_idea():
     return do_action_as_chatgpt(
         "You're generator of fake IT RFPs",
-        "You need to generate main idea of that RFP in 1 catchy sentence" "",
+        "You need to generate main idea of that RFP in 1 catchy sentence",
     )
 
 
@@ -81,7 +79,7 @@ def save_rfp_to_file(rfp, filename="rfp_output.txt"):
 
 
 if __name__ == "__main__":
-    for i in range(0, 1):
+    for _ in range(0, 1):
         idea = generate_fake_idea()
         user_stories = generate_fake_requirements(idea)
         print(user_stories)
