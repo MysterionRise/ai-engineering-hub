@@ -118,7 +118,7 @@ def encode(text: str, model: str = "gpt-4o") -> list[int]:
         List of token IDs.
     """
     encoding = get_encoding_for_model(model)
-    return encoding.encode(text)
+    return encoding.encode(text)  # type: ignore[no-any-return]
 
 
 def decode(tokens: list[int], model: str = "gpt-4o") -> str:
@@ -132,7 +132,7 @@ def decode(tokens: list[int], model: str = "gpt-4o") -> str:
         The decoded text string.
     """
     encoding = get_encoding_for_model(model)
-    return encoding.decode(tokens)
+    return encoding.decode(tokens)  # type: ignore[no-any-return]
 
 
 def truncate_to_token_limit(
@@ -166,7 +166,7 @@ def truncate_to_token_limit(
         return truncation_marker
 
     truncated_tokens = tokens[:available_tokens]
-    return encoding.decode(truncated_tokens) + truncation_marker
+    return str(encoding.decode(truncated_tokens)) + truncation_marker
 
 
 def estimate_message_tokens(

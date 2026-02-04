@@ -7,7 +7,7 @@ tools API.
 
 import time
 from collections.abc import AsyncIterator, Iterator
-from typing import Any
+from typing import Any, cast
 
 from openai import APIConnectionError, APIStatusError, AsyncOpenAI, OpenAI
 from openai import RateLimitError as OpenAIRateLimitError
@@ -36,7 +36,7 @@ from ai_hub.providers.base import (
 logger = get_logger(__name__)
 
 
-class OpenAIProvider(BaseLLMProvider):
+class OpenAIProvider(BaseLLMProvider):  # type: ignore[misc]
     """OpenAI provider implementation."""
 
     provider_name = "openai"
@@ -111,7 +111,7 @@ class OpenAIProvider(BaseLLMProvider):
         else:
             raise ProviderError(str(error), provider=self.provider_name)
 
-    @with_retry
+    @with_retry  # type: ignore[untyped-decorator]
     def complete(
         self,
         messages: list[Message],
@@ -131,10 +131,10 @@ class OpenAIProvider(BaseLLMProvider):
         try:
             response = self._client.chat.completions.create(
                 model=model,
-                messages=self._convert_messages(messages),
+                messages=cast(Any, self._convert_messages(messages)),
                 temperature=temperature,
                 max_tokens=max_tokens,
-                tools=self._convert_tools(tools),
+                tools=cast(Any, self._convert_tools(tools)),
                 **kwargs,
             )
         except Exception as e:
@@ -148,13 +148,15 @@ class OpenAIProvider(BaseLLMProvider):
         choice = response.choices[0]
         if choice.message.tool_calls:
             for tc in choice.message.tool_calls:
-                tool_calls.append(
-                    ToolCall(
-                        id=tc.id,
-                        name=tc.function.name,
-                        arguments=tc.function.arguments,
+                func = getattr(tc, "function", None)
+                if func:
+                    tool_calls.append(
+                        ToolCall(
+                            id=tc.id,
+                            name=getattr(func, "name", ""),
+                            arguments=getattr(func, "arguments", ""),
+                        )
                     )
-                )
 
         # Log the call
         usage = None
@@ -200,10 +202,10 @@ class OpenAIProvider(BaseLLMProvider):
         try:
             response = await self._async_client.chat.completions.create(
                 model=model,
-                messages=self._convert_messages(messages),
+                messages=cast(Any, self._convert_messages(messages)),
                 temperature=temperature,
                 max_tokens=max_tokens,
-                tools=self._convert_tools(tools),
+                tools=cast(Any, self._convert_tools(tools)),
                 **kwargs,
             )
         except Exception as e:
@@ -217,13 +219,15 @@ class OpenAIProvider(BaseLLMProvider):
         choice = response.choices[0]
         if choice.message.tool_calls:
             for tc in choice.message.tool_calls:
-                tool_calls.append(
-                    ToolCall(
-                        id=tc.id,
-                        name=tc.function.name,
-                        arguments=tc.function.arguments,
+                func = getattr(tc, "function", None)
+                if func:
+                    tool_calls.append(
+                        ToolCall(
+                            id=tc.id,
+                            name=getattr(func, "name", ""),
+                            arguments=getattr(func, "arguments", ""),
+                        )
                     )
-                )
 
         # Log the call
         usage = None
@@ -267,10 +271,10 @@ class OpenAIProvider(BaseLLMProvider):
         try:
             stream = self._client.chat.completions.create(
                 model=model,
-                messages=self._convert_messages(messages),
+                messages=cast(Any, self._convert_messages(messages)),
                 temperature=temperature,
                 max_tokens=max_tokens,
-                tools=self._convert_tools(tools),
+                tools=cast(Any, self._convert_tools(tools)),
                 stream=True,
                 **kwargs,
             )
@@ -319,10 +323,10 @@ class OpenAIProvider(BaseLLMProvider):
         try:
             stream = await self._async_client.chat.completions.create(
                 model=model,
-                messages=self._convert_messages(messages),
+                messages=cast(Any, self._convert_messages(messages)),
                 temperature=temperature,
                 max_tokens=max_tokens,
-                tools=self._convert_tools(tools),
+                tools=cast(Any, self._convert_tools(tools)),
                 stream=True,
                 **kwargs,
             )

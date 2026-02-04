@@ -32,7 +32,7 @@ from ai_hub.providers.base import (
 logger = get_logger(__name__)
 
 
-class AnthropicProvider(BaseLLMProvider):
+class AnthropicProvider(BaseLLMProvider):  # type: ignore[misc]
     """Anthropic Claude provider implementation."""
 
     provider_name = "anthropic"
@@ -161,7 +161,7 @@ class AnthropicProvider(BaseLLMProvider):
         text_content = "\n".join(text_parts) if text_parts else None
         return text_content, tool_calls
 
-    @with_retry
+    @with_retry  # type: ignore[untyped-decorator]
     def complete(
         self,
         messages: list[Message],

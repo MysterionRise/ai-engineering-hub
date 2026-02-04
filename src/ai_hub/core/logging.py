@@ -9,7 +9,7 @@ This module provides:
 
 import logging
 import sys
-from typing import Any
+from typing import Any, cast
 
 import structlog
 
@@ -54,7 +54,7 @@ def setup_logging() -> None:
         ]
 
     structlog.configure(
-        processors=processors,
+        processors=cast(list[structlog.typing.Processor], processors),
         wrapper_class=structlog.make_filtering_bound_logger(getattr(logging, settings.log_level)),
         context_class=dict,
         logger_factory=structlog.PrintLoggerFactory(),
@@ -62,7 +62,7 @@ def setup_logging() -> None:
     )
 
 
-def get_logger(name: str | None = None) -> structlog.stdlib.BoundLogger:
+def get_logger(name: str | None = None) -> Any:
     """Get a configured logger instance.
 
     Args:
@@ -71,8 +71,7 @@ def get_logger(name: str | None = None) -> structlog.stdlib.BoundLogger:
     Returns:
         A bound logger instance.
     """
-    logger = structlog.get_logger(name)
-    return logger
+    return structlog.get_logger(name)
 
 
 class LogContext:
@@ -97,7 +96,7 @@ class LogContext:
 
 
 def log_llm_call(
-    logger: structlog.stdlib.BoundLogger,
+    logger: Any,
     provider: str,
     model: str,
     input_tokens: int | None = None,

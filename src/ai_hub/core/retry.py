@@ -11,7 +11,7 @@ import random
 from collections.abc import Callable
 from typing import Any, ParamSpec, TypeVar
 
-from tenacity import (
+from tenacity import (  # type: ignore[attr-defined]
     retry,
     retry_if_exception_type,
     stop_after_attempt,
@@ -75,9 +75,9 @@ def create_retry_decorator(
             )
 
     return retry(
-        stop=stop_after_attempt(max_retries + 1),
+        stop=stop_after_attempt(max_retries + 1),  # type: ignore[no-untyped-call]
         wait=wait_exponential_jitter(initial=min_wait, max=max_wait, jitter=min_wait),
-        retry=retry_if_exception_type(retryable_exceptions),
+        retry=retry_if_exception_type(retryable_exceptions),  # type: ignore[no-untyped-call]
         before_sleep=log_retry,
         reraise=True,
     )
@@ -115,10 +115,10 @@ def retry_with_backoff(
 
 
 async def execute_with_retry(
-    func: Callable[P, T],
-    *args: P.args,
+    func: Callable[..., T],
+    *args: Any,
     max_retries: int | None = None,
-    **kwargs: P.kwargs,
+    **kwargs: Any,
 ) -> T:
     """Execute a function with retry logic.
 
